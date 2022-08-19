@@ -14,4 +14,3 @@ Goal:
 const stateManager = new StateManager();
 const form = new Form(stateManager)
 
-document.getElementById("favorites").addEventListener("click" , this.stateManager.seeFavorites())

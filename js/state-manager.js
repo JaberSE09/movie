@@ -1,4 +1,4 @@
-import { addNote, addFavorite } from "./connection";
+import { addNote, addFavorite, readFavorites } from "./connection";
 
 import { apiKey } from "./key";
 
@@ -18,8 +18,10 @@ Each comment has:
 */
 
 export default class StateManager {
-  favoriteArray=[]
-  constructor() {}
+  constructor() {
+
+    this.favoriteArray= readFavorites()
+  }
   //This function will  data to db
   submitNote() {
     let noteElement = document.getElementById("note").value;
@@ -29,19 +31,12 @@ export default class StateManager {
 
 
   seeFavorites(){
-    const parent = document.querySelector(".movie-details");
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    }
+    console.log("test");
 
 
-    if(this.favoriteArray== null){
-      const movieTemplate = document.createElement("h1")
+    console.log(this.favoriteArray);
+    let parent = document.getElementsByClassName("movie-details")
 
-      movieTemplate.innerHTML="No movies"
-      parent.appendChild(movieTemplate)
-    }
-    else{
     //Create var/String holding HTML
     //h2 is the thing holding the title  that is coming back go into data(template literal and give me  the title)
     //p tag  is holding the year
@@ -49,18 +44,16 @@ export default class StateManager {
     const movieTemplate = document.createElement("div")
     
     movieTemplate.innerHTML=
-    this.favoriteArray.map(data =>`
-          
-    <h2>${data.Title}</h2>
-    <p>${data.Year}</p>
-    <img src="${data.Poster}" alt= "poster image"/>
-    <p>${data.Plot}</p>
-    
-    `);     
+    this.favoriteArray.map(data => 
+      {
+      let title= document.createElement("h2")
+      title.innerHTML=data.Title
+      parent.appendChild(title)
+  }); 
+        
     document
     .querySelector(".movie-details")
-    .appendChild( movieTemplate);
-  }
+    .appendChild(movieTemplate);
 }
   
 

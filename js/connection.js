@@ -1,12 +1,13 @@
 let db;
 let dbReq = indexedDB.open('myDatabase', 2);
-
+var fav= []
 
 dbReq.onupgradeneeded = function(event) {
     db = event.target.result;
     db.createObjectStore('notes', {autoIncrement: true});
     db.createObjectStore('favorites', {autoIncrement: true});
   }
+
 
   dbReq.onsuccess = function(event) {
     db = event.target.result;
@@ -34,9 +35,16 @@ dbReq.onupgradeneeded = function(event) {
         let store = tx.objectStore('favorites');
         // Put the sticky note into the object store
         store.add(message);
+        fav.push(message)
         // Wait for the database transaction to complete
-        tx.oncomplete = function() { console.log('stored note!') }
+        tx.oncomplete = function() { 
+          
+          console.log('stored note!') }
         tx.onerror = function(event) {
           alert('error storing note ' + event.target.errorCode);
         }
-    }
+
+}
+export function readFavorites() {
+  
+}

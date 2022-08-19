@@ -84,7 +84,7 @@ export default class Favorite {
         //Target information  or Movie  Details by adding to the DOM
         document
           .querySelector(".movie-details")
-          .appendChild( movieTemplate);
+          .appendChild(movieTemplate);
         // here we are targeting the #movie-details element and
         // adding the html to the end of the element:
         //what to display: created h2 template to bring back whatever title sought
@@ -92,15 +92,10 @@ export default class Favorite {
         const form = new Form()
         console.log(data.Title);
         console.log(data.Poster);
-        document.getElementById("favorite").addEventListener("click" , stateManager.submitFavorite(data))
-      
-      });
-  };
+        document.getElementById("favorite").addEventListener("click" , () =>{
+          stateManager.submitFavorite(data)
+        })
+      })
 
-
-
-
-
-  
-
+    }
 }
