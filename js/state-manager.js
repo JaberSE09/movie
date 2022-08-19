@@ -1,4 +1,5 @@
 import { addNote, addFavorite } from "./connection";
+
 import { apiKey } from "./key";
 
 /*
@@ -17,31 +18,28 @@ Each comment has:
 */
 
 export default class StateManager {
-  favoriteArray=[]
-  noteArray= []
-  constructor() {
-
-  }
+  constructor() {}
   //This function will  data to db
   submitNote() {
     let noteElement = document.getElementById("note").value;
     let note = { note: noteElement };
-    this.noteArray.push(note)
     addNote(note);
-    document.getElementById("note").value=""  
   }
 
+
   
+
+
+
+
   submitFavorite(data) {
-    let Title = data.Title
-    let Plot = data.Plot
-    let Year = data.Year
-    let src = data.Poster
-    let note = data.note
-    let favorite = { Title: Title, plot: Plot, year: Year, src: src,note: note , api: apiKey };
-    this.favoriteArray.push(favorite);
+    let title = data.Title
+    let plot = data.Plot
+    let year = data.Year
+    let favorite = { title: title, plot: plot, year: year,  api: apiKey };
+
     addFavorite(favorite)
-   let movie=  document.getElementsByClassName("movie-details")
+
 
   }
 }

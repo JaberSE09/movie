@@ -5,7 +5,7 @@ const stateManager = new StateManager();
 import {apiKey} from "./key"
 
 export default class Favorite {
-  favoriteArray = [];
+  favoriteArray = [];;
   constructor() {
     const formTemplate = `
         <form>
@@ -43,17 +43,8 @@ export default class Favorite {
     //appends to the DOM says go find the "form container"
     document
       .querySelector("form")
-      .addEventListener("submit",()=> {
-        const parent = document.querySelector(".movie-details");
-        while (parent) {
-          parent.remove
-        }
-        this.search.bind(this)
-      
-
-      
-      });
-      const parent = document.querySelector(".movie-details");
+      .addEventListener("submit", this.search.bind(this));
+    //adds event listener when user clicks submit add comment
   }
 
   search = (ev) => {
@@ -68,12 +59,16 @@ export default class Favorite {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-       
+        const parent = document.querySelector(".movie-details");
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
         //Create var/String holding HTML
         //h2 is the thing holding the title  that is coming back go into data(template literal and give me  the title)
         //p tag  is holding the year
         //img  tag gives you the poster for the movie displayed
         const movieTemplate = `
+          
         <h2>${data.Title}</h2>
         <p>${data.Year}</p>
         <img src="${data.Poster}" alt= "poster image"/>
@@ -97,13 +92,14 @@ export default class Favorite {
         const form = new Form()
         console.log(data.Title);
         console.log(data.Poster);
-        
-        document.getElementById("favorite").addEventListener("click" , () => {
-          data.note=document.getElementById("note").value
-          stateManager.submitFavorite(data)
+        document.getElementById("favorite").addEventListener("click" , stateManager.submitFavorite(data))
+      });
+  };
 
-        })
-      })
-    }
-  }
 
+
+
+
+  
+
+}
