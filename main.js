@@ -7,3 +7,4 @@ import stateManager from "./js/state-manager"
 // const form = new Form(stateManager)
 import Favorite from "./js/favorite-component"
 const favorite = new Favorite();
+

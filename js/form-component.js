@@ -12,7 +12,7 @@ export default class Form {
  
     <form>
       <!-- Name -->
-      <div>
+      <div>n
         <label for="name">Note (required)</label>
       </div>
       <div>
@@ -27,7 +27,7 @@ export default class Form {
         />
       </div>
       </div>
-      <input type="Submit" value="Submit" />
+      <input id="submitNote" type="Submit" value="Submit" />
           </form>
           <input id="favorite" type="Submit" value="Add To Favorite" />
 
@@ -39,16 +39,26 @@ export default class Form {
     document
       .querySelector("form")
       .addEventListener("submit", this.addNote.bind(this));
+
+
+  document
+  .querySelector("#favorites")
+  .addEventListener("click", stateManager.displayFavorites());
   }
 
 
+
+
+
+  
   addFavorites() {
     // goal of add comment is to let the state manager know
     // that a new comment has been added:
     // tell the state manager that we have
     // a new comment to add:
     stateManager.submitFavorite();
-    
+
+
 
     // Your Job: how do you clear out your form!!
     
@@ -63,6 +73,8 @@ export default class Form {
     // tell the state manager that we have
     // a new comment to add:
     stateManager.submitNote();
+
+    
 
     // Your Job: how do you clear out your form!!
     
