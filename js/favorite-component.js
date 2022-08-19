@@ -5,7 +5,6 @@ const stateManager = new StateManager();
 import {apiKey} from "./key"
 
 export default class Favorite {
-  favoriteArray = [];;
   constructor() {
     const formTemplate = `
         <form>
@@ -45,15 +44,14 @@ export default class Favorite {
       .querySelector("form")
       .addEventListener("submit", this.search.bind(this));
     //adds event listener when user clicks submit add comment
-  }
-
+ }
   search = (ev) => {
+  
     ev.preventDefault();
     const title = document.querySelector("#title").value;
     const year = document.querySelector("#year").value;
     const plot = document.querySelector("#plot").value;
     const url = `https://www.omdbapi.com/?t=${title}&y=${year}&plot=${plot}&apikey=${apiKey}`;
-
     console.log(url);
     fetch(url)
       .then((response) => response.json())
@@ -67,7 +65,9 @@ export default class Favorite {
         //h2 is the thing holding the title  that is coming back go into data(template literal and give me  the title)
         //p tag  is holding the year
         //img  tag gives you the poster for the movie displayed
-        const movieTemplate = `
+        const movieTemplate = document.createElement("div")
+        
+        movieTemplate.innerHTML=`
           
         <h2>${data.Title}</h2>
         <p>${data.Year}</p>
@@ -79,12 +79,12 @@ export default class Favorite {
 
 
 
-        
+      
 
         //Target information  or Movie  Details by adding to the DOM
         document
           .querySelector(".movie-details")
-          .insertAdjacentHTML("afterend", movieTemplate);
+          .appendChild( movieTemplate);
         // here we are targeting the #movie-details element and
         // adding the html to the end of the element:
         //what to display: created h2 template to bring back whatever title sought
@@ -93,6 +93,7 @@ export default class Favorite {
         console.log(data.Title);
         console.log(data.Poster);
         document.getElementById("favorite").addEventListener("click" , stateManager.submitFavorite(data))
+      
       });
   };
 

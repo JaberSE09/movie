@@ -18,6 +18,7 @@ Each comment has:
 */
 
 export default class StateManager {
+  favoriteArray=[]
   constructor() {}
   //This function will  data to db
   submitNote() {
@@ -27,6 +28,40 @@ export default class StateManager {
   }
 
 
+  seeFavorites(){
+    const parent = document.querySelector(".movie-details");
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+
+
+    if(this.favoriteArray== null){
+      const movieTemplate = document.createElement("h1")
+
+      movieTemplate.innerHTML="No movies"
+      parent.appendChild(movieTemplate)
+    }
+    else{
+    //Create var/String holding HTML
+    //h2 is the thing holding the title  that is coming back go into data(template literal and give me  the title)
+    //p tag  is holding the year
+    //img  tag gives you the poster for the movie displayed
+    const movieTemplate = document.createElement("div")
+    
+    movieTemplate.innerHTML=
+    this.favoriteArray.map(data =>`
+          
+    <h2>${data.Title}</h2>
+    <p>${data.Year}</p>
+    <img src="${data.Poster}" alt= "poster image"/>
+    <p>${data.Plot}</p>
+    
+    `);     
+    document
+    .querySelector(".movie-details")
+    .appendChild( movieTemplate);
+  }
+}
   
 
 
@@ -36,11 +71,12 @@ export default class StateManager {
     let title = data.Title
     let plot = data.Plot
     let year = data.Year
-    let favorite = { title: title, plot: plot, year: year,  api: apiKey };
-
+    let src = data.Poster
+    let favorite = { title: title, plot: plot, year: year,src: src , api: apiKey };
     addFavorite(favorite)
-
-
+    this.favoriteArray.push(favorite)
+    console.log(this.favoriteArray)
+    
   }
 }
 
